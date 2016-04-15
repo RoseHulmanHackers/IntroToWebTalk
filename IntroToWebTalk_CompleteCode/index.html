@@ -19,28 +19,24 @@
 <div class="container main">
 	<h1>Intro to Web Development<small> Steven Doolan</small></h1>
 	<h2>Movie Database Challenge</h2>
-	<div class="container">
-		<table class="table">
+
+	<div class="data-table-container container" style="padding-top: 2em">
+		<table class="table table-hover">
 			<thead>
-				<tr>
-					<th>
-						Title
-					</th>
-					<th>Year</th>
-					<th>Rated</th>
-				</tr>
+			<tr data-bind="foreach: headers">
+				<th data-bind="click:  $root.sort, text: title" style="cursor:pointer"></th>
+			</tr>
 			</thead>
 			<tbody data-bind="foreach: gridData">
-				<tr >
-					<td>
-						<a data-bind="text:Title, attr: {href: redirectURL}" ></a>
-					</td>
-					<td data-bind="text: Year"></td>
-					<td data-bind="text: Rated"></td>
-				</tr>
+			<tr>
+				<td >
+					<a data-bind="text: Title, attr: {href: redirectURL}"></a>
+				</td>
+				<td data-bind="text: Year"></td>
+				<td data-bind="text: Rated"></td>
+			</tr>
 			</tbody>
 		</table>
-
 	</div>
 </div>
 </body>

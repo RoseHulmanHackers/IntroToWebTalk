@@ -21,9 +21,32 @@
 </head>
 <body>
 <div class="container main">
-<div class="header">
-    <h1 data-bind="text: pageTitle"></h1>
-</div>
+    <div class="header">
+        <h1 data-bind="text: pageTitle()"></h1>
+        <form class="" data-bind="submit: loadMovieData">
+            Search For another movie:
+            <div class="input-group">
+                <input class="form-control" data-bind="value: newMovieTitle" placeholder="What movie should display?"/>
+			<span class="input-group-btn">
+		        <button class="btn btn-submit" type="submit">Search</button>
+            </span>
+            </div>
+        </form>
+    </div>
+    <hr>
+
+    <div class="container-fluid" data-bind="visible: displayMovieData">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <img data-bind="attr:{src: movieData().Poster}"/>
+            </div>
+            <div class="col-lg-8 col-md-4">
+                <h1 data-bind="text: pageTitle()"></h1>
+                <h2 data-bind="text: movieData().Genre"></h2>
+                <h3 data-bind="text: movieData().Actors"></h3>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -1,6 +1,5 @@
 var KO_MODEL;
 
-//utility function
 var grabFromUrl = function (string) {
     var url = window.location.search.substring(1);
     var urlVars = url.split('&');
@@ -13,15 +12,26 @@ var grabFromUrl = function (string) {
     return null;
 };
 
-//Open Movie Database API: http://omdbapi.com/
+
 var MainModel = function (movieName) {
     var self = this;
     self.pageTitle = ko.observable();
-    self.newMovieTitle(movieName);
+    self.movieDisplayName = ko.computed({
+       read: function() {
+            return self.pageTitle === null ? 'Search For a Movie': self.pageTitle;
+       }
+    });
+    self.newMovieTitle = ko.observable(movieName);
+
+    self.displayMovieData = ko.observable(false);
+    self.movieData = ko.observable({});
+
+
+
     self.loadMovieData = function () {
 
         var package = {
-          t:(self.newMovieTitle()).replace(" ", "+"),
+          t:(self.newMovieTitle()).replace(/ /g, "+"),
           r: 'json'
         };
         $.ajax({
@@ -31,15 +41,19 @@ var MainModel = function (movieName) {
             dataType: 'JSON',
             success: function(data){
                 if(data.Title) {
-                  //do something
+                    self.displayMovieData(true);
+                    self.movieData(data);
+                    self.pageTitle(data.Title);
                 }else{
-                    //result not found -- do somthing else
+                    self.pageTitle("Movie not Found");
+                    self.displayMovieData(false);
                 }
                 console.log("success", data);
             },
             error: function(request, status, error){
-                // -- error to the console and do something
-                console.log(request, status, error);
+                self.pageTitle("Movie not Found");
+                self.displayMovieData(false);
+                console.log(error, status, request);
             }
         });
     };
@@ -49,6 +63,6 @@ var MainModel = function (movieName) {
 
 
 $(document).ready(function () {
-    window.KO_MODEL = MainModel(grabFromUrl('title').replace("+", " "));
+    window.KO_MODEL = MainModel(grabFromUrl('title').replace(/\+/g, " "));
     ko.applyBindings(window.KO_MODEL);
 });
