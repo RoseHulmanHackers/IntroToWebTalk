@@ -1,5 +1,10 @@
 var KO_MODEL;
 
+/**
+ * This function grabs the url parameters. In this case, the name of the movie
+ * @param string
+ * @returns {*}
+ */
 var grabFromUrl = function (string) {
     var url = window.location.search.substring(1);
     var urlVars = url.split('&');
@@ -34,6 +39,10 @@ var MainModel = function (movieName) {
           t:(self.newMovieTitle()).replace(/ /g, "+"),
           r: 'json'
         };
+        /**
+         * This is our AJAX API Call
+         * We can test what this call is doing inside of Postman
+         */
         $.ajax({
             url: 'http://www.omdbapi.com/',
             type: 'GET',
@@ -48,7 +57,6 @@ var MainModel = function (movieName) {
                     self.pageTitle("Movie not Found");
                     self.displayMovieData(false);
                 }
-                console.log("success", data);
             },
             error: function(request, status, error){
                 self.pageTitle("Movie not Found");
