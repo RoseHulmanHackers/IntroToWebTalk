@@ -20,9 +20,7 @@ Download or clone the the [github repository](https://github.com/RoseHulmanHacke
 
 ### Finished Product
 ##### Completed Faviotes Table (index.html)
-![index.html](./screen grabs/index-finished.png "index.html")
+![index.html](./screen%20grabs/index-finished.png "index.html")
 
 ##### Completed Movie Search (movie.html)
 ![movie.html](./screen%20grabs/movie-finished.png "movie.html")
-
-![movie.html](./screen%20grabs/movie-finished.png "Logo Title Text 1")
